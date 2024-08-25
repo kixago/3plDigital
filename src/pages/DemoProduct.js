@@ -3,12 +3,12 @@ import NavBar from '../components/Navbar/NavBar';
 import Footer from '../components/Footer';
 import {useDocTitle} from '../components/CustomHook';
 import axios from 'axios';
-// import emailjs from 'emailjs-com';
+import emailjs from 'emailjs-com';
 import Notiflix from 'notiflix';
 
 const DemoProduct = (props) => {
 
-    useDocTitle('MLD | Molad e Konsult - Demo our products')
+    useDocTitle('3PL Digital | Request A Demo Of Our Services')
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -44,72 +44,34 @@ const DemoProduct = (props) => {
         setMessage('')
     }
     
-    function sendEmail(e) {
+    const sendEmail = (e) => {
         e.preventDefault();
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('submitBtn').innerHTML = 'Loading...';
-        let fData = new FormData();
-        fData.append('first_name', firstName)
-        fData.append('last_name', lastName)
-        fData.append('email', email)
-        fData.append('phone_number', phone)
-        fData.append('message', message)
-        fData.append('products', demoProducts)
 
-        // emailjs.sendForm('service_7uy4ojg', 'template_et9wvdg', e.target, 'user_uE0bSPGbhRTmAF3I2fd3s')
-        //   .then((result) => {
-        //       console.log(result.text);
-        //       Notiflix.Report.success(
-        //         'Success',
-        //         '"Thanks for sending a message, we\'ll be in touch soon."',
-        //         'Okay',
-        //         );
-        //   }, (error) => {
-        //       console.log(error.text);
-        //       Notiflix.Report.failure(
-        //         'An error occured',
-        //         'Please try sending the message again.',
-        //         'Okay',
-        //         );
-        //   });
-
-        axios({
-            method: "post",
-            url: process.env.REACT_APP_DEMO_REQUEST_API,
-            data: fData,
-            headers: {
-                'Content-Type':  'multipart/form-data'
-            }
-        })
-        .then(function (response) {
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').innerHTML = 'send message';
-            clearInput()
-            //handle success
-            Notiflix.Report.success(
-                'Success',
-                response.data.message,
-                'Okay',
-            );
-        })
-        .catch(function (error) {
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').innerHTML = 'send message';
-            //handle error
-            const { response } = error;
-            if(response.status === 500) {
-                Notiflix.Report.failure(
-                    'An error occurred',
-                    response.data.message,
-                    'Okay',
-                );
-            }
-            if(response.data.errors !== null) {
-                setErrors(response.data.errors)
-            }
-            
-        });
-    }
+        emailjs.sendForm('service_45wz6fx', 'template_enpsx0g', e.target, 'VT3bRGulrQnvo5qQb')
+          .then((response) => {
+              document.getElementById('submitBtn').disabled = false;
+              document.getElementById('submitBtn').innerHTML = 'send message';
+              clearInput();
+              // Handle success
+              Notiflix.Report.success(
+                  'Success',
+                  'Your message has been sent successfully. We will be in touch soon!',
+                  'Okay',
+              );
+          })
+          .catch((error) => {
+              document.getElementById('submitBtn').disabled = false;
+              document.getElementById('submitBtn').innerHTML = 'send message';
+              // Handle error
+              Notiflix.Report.failure(
+                  'An error occurred',
+                  error.text || 'There was an issue sending your message. Please try again!',
+                  'Okay',
+              );
+          });
+    };
     return (
         <>
             <div>
@@ -120,47 +82,51 @@ const DemoProduct = (props) => {
                     <form onSubmit={sendEmail} id="demoProductForm">
                         <div className="w-full bg-white p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
                             <div className="flex">
-                                <h1 className="font-bold text-center lg:text-left text-blue-900 uppercase text-4xl">Demo our products</h1>
+                                <h1 className="font-bold text-center lg:text-left text-blue-900 uppercase text-4xl">Products Of Interest</h1>
                             </div>
                             <div className="flex items-center my-4">
                                 <input 
+                                    name="web_design"
                                     id="checkbox-1" 
                                     aria-describedby="checkbox-1" 
                                     type="checkbox" 
                                     className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" 
-                                    value="business_management_system" onChange={handleChange}
+                                    value="YES" onChange={handleChange}
                                  />
-                                <label htmlFor="checkbox-1" className="ml-3 text-lg font-medium text-gray-900">Business Management System</label>
+                                <label htmlFor="checkbox-1" className="ml-3 text-lg font-medium text-gray-900">Web Design & Optimization</label>
                             </div>
                             <div className="flex items-center my-4">
                                 <input 
-                                    id="checkbox-1" 
-                                    aria-describedby="checkbox-1" 
+                                    name="cloud_infrastructure"
+                                    id="checkbox-2"
+                                    aria-describedby="checkbox-2" 
                                     type="checkbox" 
                                     className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
-                                    value="school_management_portal" onChange={handleChange}
+                                    value="YES" onChange={handleChange}
                                     />
-                                <label htmlFor="checkbox-1" className="ml-3 text-lg font-medium text-gray-900">School Management Portal</label>
+                                <label htmlFor="checkbox-2" className="ml-3 text-lg font-medium text-gray-900">Cloud Infrastructure</label>
                             </div>
                             <div className="flex items-center my-4">
                                 <input 
-                                    id="checkbox-1" 
-                                    aria-describedby="checkbox-1" 
+                                    name="voip"
+                                    id="checkbox-3" 
+                                    aria-describedby="checkbox-3" 
                                     type="checkbox" 
                                     className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded" 
-                                    value="payroll_management_system" onChange={handleChange}
+                                    value="YES" onChange={handleChange}
                                 />
-                                <label htmlFor="checkbox-1" className="ml-3 text-lg font-medium text-gray-900">Payroll Management System</label>
+                                <label htmlFor="checkbox-3" className="ml-3 text-lg font-medium text-gray-900">Communication Solutions (VOIP)</label>
                             </div>
                             <div className="flex items-center my-4">
                                 <input 
-                                    id="checkbox-1" 
-                                    aria-describedby="checkbox-1" 
+                                    name="digital_marketing"
+                                    id="checkbox-4" 
+                                    aria-describedby="checkbox-4" 
                                     type="checkbox" 
                                     className="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded"
-                                    value="event_management_system" onChange={handleChange}
+                                    value="YES" onChange={handleChange}
                                 />
-                                <label htmlFor="checkbox-1" className="ml-3 text-lg font-medium text-gray-900">Event Management System</label>
+                                <label htmlFor="checkbox-4" className="ml-3 text-lg font-medium text-gray-900">Digital Marketing Solutions</label>
                             </div>
                             {errors && 
                                 <p className="text-red-500 text-sm">{errors.products}</p>
@@ -216,7 +182,7 @@ const DemoProduct = (props) => {
                                     <input
                                         name="phone_number" 
                                         className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                                        type="number" 
+                                        type="tel" 
                                         placeholder="Phone*"
                                         value={phone}
                                         onChange={(e)=> setPhone(e.target.value)}
@@ -255,8 +221,8 @@ const DemoProduct = (props) => {
                                     <i className="fas fa-map-marker-alt pt-2 pr-2" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <h2 className="text-2xl">Office Address</h2>
-                                    <p className="text-gray-400">Ilo Awela, Ota, Ogun State</p>
+                                    <h2 className="text-2xl">Office Locations</h2>
+                                    <p className="text-gray-400">United States, South Carolina</p>
                                 </div>
                             </div>
                             
@@ -266,12 +232,12 @@ const DemoProduct = (props) => {
                                 </div>
 
                                 <div className="flex flex-col">
-                                    <h2 className="text-2xl">Call Us</h2>
-                                    <p className="text-gray-400">Tel: 08055384406</p>
+                                    <h2 className="text-2xl">Get In Touch</h2>
+                                    <p className="text-gray-400">Tel: <a href="tel:8548468500">854.846.8500</a></p>
                                 
                                     <div className='mt-5'>
                                         <h2 className="text-2xl">Send an E-mail</h2>
-                                        <p className="text-gray-400">info@mld.ng</p>
+                                        <p className="text-gray-400">info@3pl.digital</p>
                                     </div>
                             
                                 </div>
