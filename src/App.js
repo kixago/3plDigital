@@ -22,8 +22,9 @@ function App() {
 
   // Update the document direction
   useEffect(() => {
-    document.body.dir = i18n.dir();
-  }, [i18n.dir()]);
+    const dir = i18n.dir();
+    document.body.dir = dir;
+  }, [i18n]);
 
   // Initialize AOS
   useEffect(() => {

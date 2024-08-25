@@ -8,8 +8,6 @@ import { useTranslation } from 'react-i18next';
 const Hero = () => {
   const {t, i18n} = useTranslation();
   const strings = i18n.t('hero_type', { returnObjects: true });
-
-  const heroTypeKeys = ['first', 'second', 'third', 'fourth', 'fifth'];
     return (
         <>
             <div className="hero" id='hero'>

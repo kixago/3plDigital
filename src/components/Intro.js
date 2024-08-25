@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 
 const Intro = () => {
-    const {t, i18n} = useTranslation();
+    const {i18n} = useTranslation();
     return (
         <>
                 <div className="m-auto max-w-6xl p-2 md:p-12 h-5/6" id='about' >

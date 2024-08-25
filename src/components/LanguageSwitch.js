@@ -8,7 +8,6 @@ const LanguageSwitcher = () => {
   const [activeLanguage, setActiveLanguage] = useState(i18n.language);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
-  const closeDropdown = () => setIsOpen(false);
 
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);

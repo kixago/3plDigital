@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../LanguageSwitch'; // Import your LanguageSwitcher component
 
 const NavBar = () => {
-    const { t, i18n } = useTranslation();
-    const strings = i18n.t('navbar', { returnObjects: true });
+    const { i18n } = useTranslation();
+    // const strings = i18n.t('navbar', { returnObjects: true });
 
     const [top, setTop] = useState(!window.scrollY);
     const [isOpen, setIsOpen] = React.useState(false);

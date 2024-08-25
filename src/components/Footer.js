@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
-  const {t, i18n} = useTranslation();
+  // const {t, i18n} = useTranslation();
     return (
         <>
             <footer>
