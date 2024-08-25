@@ -1,0 +1,12 @@
+# Node modules
+node_modules/
+
+# Yarn lock file
+yarn.lock
+
+# Log files
+*.log
+
+# Environment files
+.env
+
