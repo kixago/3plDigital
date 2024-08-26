@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AOS from 'aos';
+import Aos from 'aos';
 import "aos/dist/aos.css";
 import './index.css';
 import {
@@ -9,7 +9,6 @@ import {
   useParams,
   Navigate,
 } from 'react-router-dom';
-// All pages
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import DemoProduct from './pages/DemoProduct';
@@ -26,31 +25,31 @@ function App() {
   useEffect(() => {
     const dir = i18n.dir();
     document.body.dir = dir;
-  }, [i18n]);
+  }, [i18n.language]);
 
-  // Initialize AOS
+  // Initialize AOS (Animate On Scroll)
   useEffect(() => {
-    const aos_init = () => {
-      AOS.init({
+    const aosInit = () => {
+      Aos.init({
         once: true,
         duration: 1000,
         easing: 'ease-out-cubic',
       });
     }
 
-    window.addEventListener('load', aos_init);
-    return () => window.removeEventListener('load', aos_init);
+    window.addEventListener('load', aosInit);
+    return () => window.removeEventListener('load', aosInit);
   }, []);
 
   // Update the document title
-  useDocTitle("3PL Digital | IT consultants, web & mobile design, VOIP");
+  useDocTitle("3PL Digital | IT Consultants, Web & Mobile Design, VoIP");
 
   // Update key on language change
   useEffect(() => {
     setKey(i18n.language);
   }, [i18n.language]);
 
-   const LanguageWrapper = ({ children }) => {
+  const LanguageWrapper = ({ children }) => {
     const { lng } = useParams();
 
     useEffect(() => {
@@ -61,17 +60,18 @@ function App() {
 
     return children;
   };
+
   return (
     <Router>
       <ScrollToTop>
         <ContentTransition key={key}>
           <Routes>
-              <Route path="/" element={<Navigate to={`/${i18n.language}`} />} />
-              <Route path="/:lng" element={<Home />} />
-              <Route path="/:lng/contact" element={<Contact />} />
-              <Route path="/:lng/get-demo" element={<DemoProduct />} />
-              {/* Catch-all route for unknown languages */}
-              <Route path="*" element={<Navigate to="/en" />} />
+            <Route path="/" element={<Navigate to={`/${i18n.language}`} />} />
+            <Route path="/:lng" element={<Home />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/get-demo" element={<DemoProduct />} />
+            {/* Catch-all route for unknown languages */}
+            <Route path="*" element={<Navigate to="/en" />} />
           </Routes>
         </ContentTransition>
       </ScrollToTop>
