@@ -35,7 +35,7 @@ function App() {
         duration: 1000,
         easing: 'ease-out-cubic',
       });
-    }
+    };
 
     window.addEventListener('load', aosInit);
     return () => window.removeEventListener('load', aosInit);
@@ -49,14 +49,13 @@ function App() {
     setKey(i18n.language);
   }, [i18n.language]);
 
-    useEffect(() => {
-      if (lng && i18n.language !== lng) {
-        i18n.changeLanguage(lng);
-      }
-    }, [lng, i18n]);
-
-    return children;
-  };
+  // Handle language change based on URL parameters
+  const { lng } = useParams();
+  useEffect(() => {
+    if (lng && i18n.language !== lng) {
+      i18n.changeLanguage(lng);
+    }
+  }, [lng, i18n]);
 
   return (
     <Router>
@@ -65,8 +64,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to={`/${i18n.language}`} />} />
             <Route path="/:lng" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/get-demo" element={<DemoProduct />} />
+            <Route path="/:lng/contact" element={<Contact />} />
+            <Route path="/:lng/get-demo" element={<DemoProduct />} />
             {/* Catch-all route for unknown languages */}
             <Route path="*" element={<Navigate to="/en" />} />
           </Routes>
