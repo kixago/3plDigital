@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Transition } from 'react-transition-group';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const LanguageSwitcher = () => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeLanguage, setActiveLanguage] = useState(i18n.language);
+  const navigate = useNavigate(); // Initialize useNavigate
 
+  // Toggle dropdown menu
   const toggleDropdown = () => setIsOpen(!isOpen);
 
+  // Handle language change
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
-    setActiveLanguage(lang);
+
+    // Update URL based on selected language
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.replace(/^\/(en|he)/, `/${lang}`);
+    navigate(newPath); // Use navigate to redirect to new path
+
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [i18n.language]);
+  // Get the currently active language
+  const activeLanguage = i18n.language;
 
   return (
     <div className="relative">
