@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     const dir = i18n.dir();
     document.body.dir = dir;
-  }, [i18n.language]);
+  }, [i18n, i18n.language]);
 
   // Initialize AOS (Animate On Scroll)
   useEffect(() => {
@@ -48,9 +48,6 @@ function App() {
   useEffect(() => {
     setKey(i18n.language);
   }, [i18n.language]);
-
-  const LanguageWrapper = ({ children }) => {
-    const { lng } = useParams();
 
     useEffect(() => {
       if (lng && i18n.language !== lng) {
